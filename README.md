@@ -30,23 +30,19 @@ This is a React web application designed for booking cabins, featuring robust au
 
 ## Getting Started
 
-1. Clone the repository.
-2. Install dependencies using `npm install` or `yarn install`.
-3. Set up the Supabase database and configure the necessary environment variables.
-4. Run the application using `npm start` or `yarn start`.
-5. Access the application in your web browser at `http://localhost:3000`.
+## Installation
 
-## Contributing
+Clone and move to the repository
 
-If you'd like to contribute to this project, please follow the [contributing guidelines](CONTRIBUTING.md).
+```bash
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-Feel free to modify this `README.md` file to suit the specific details and structure of your project.
+1. Clone the repository : git clone https://github.com/MonasefDev/wild-oasis.git
+2. change direction to : cd the-wild-oasis
+3. Install dependencies using `npm install` or `yarn install`.
+4. Set up the Supabase database and configure the necessary environment variables.
+5. Run the application using `npm run build` or `yarn run build`.
+6. Access the application in your web browser at `http://localhost:5173/`.
+```
 
 ## Link Website
 
@@ -85,18 +81,3 @@ https://wild-oasis1.netlify.app/
 | Edit user Page                                   |
 | ------------------------------------------------ |
 | ![login page](public/screens/edit-user-page.png) |
-
-## Installation
-
-Clone and move to the repository
-
-```bash
-git clone https://github.com/MonasefDev/wild-oasis.git
-cd the-wild-oasis
-
-# install packages
-npm install
-# run the server
-npm run dev
-
-```
