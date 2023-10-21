@@ -43,20 +43,21 @@ export async function createEditCabin(newCabin, id) {
 
   //2. upload Image
 
-  const { error: errorUploading } = await supabase.storage
-    .from('cabins-image')
-    .upload(imageName, newCabin.image);
+  if (!hasImagePath) {
+    const { error: errorUploading } = await supabase.storage
+      .from('cabins-image')
+      .upload(imageName, newCabin.image);
 
-  //3. delete newCabin if there was an error while uploading image
+    //3. delete newCabin if there was an error while uploading image
 
-  if (errorUploading) {
-    await supabase.from('cabins').delete().eq('id', newCabin.id);
-    console.error(errorUploading);
-    throw new Error(
-      'the image not be uploaded, and the cabin was not be created'
-    );
+    if (errorUploading) {
+      await supabase.from('cabins').delete().eq('id', newCabin.id);
+      console.error(errorUploading);
+      throw new Error(
+        'the image not be uploaded, and the cabin was not be created'
+      );
+    }
   }
-
   return data;
 }
 //* //////////////////////////////////////////////////////////////////

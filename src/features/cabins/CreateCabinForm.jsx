@@ -12,24 +12,40 @@ import { useEditCabin } from './useEditCabin';
 function CreateCabinForm({ setShowForm, cabinToEdit = {} }) {
   const { id: editId, ...editValues } = cabinToEdit;
   const isEditSession = Boolean(editId);
-  const { register, handleSubmit, getValues, formState } = useForm({
+  const { register, handleSubmit, reset, getValues, formState } = useForm({
     defaultValues: isEditSession ? editValues : {}, //pass the prev values to the forms
   });
   const { errors } = formState;
 
-  const { isCreating, createCabin } = useCreateCabin({ setShowForm });
-  const { isEditing, editCabin } = useEditCabin({ setShowForm });
+  const { isCreating, createCabin } = useCreateCabin();
+  const { isEditing, editCabin } = useEditCabin();
 
   const isWorking = isCreating || isEditing;
 
   const onSubmit = (data) => {
     const image = typeof data.image === 'string' ? data.image : data.image[0];
     isEditSession
-      ? editCabin({
-          newCabinData: { ...data, image },
-          id: editId,
-        })
-      : createCabin({ ...data, image: data.image[0] });
+      ? editCabin(
+          {
+            newCabinData: { ...data, image },
+            id: editId,
+          },
+          {
+            onSuccess: (data) => {
+              reset();
+              setShowForm(false);
+            },
+          }
+        )
+      : createCabin(
+          { ...data, image: data.image[0] },
+          {
+            onSuccess: (data) => {
+              reset();
+              setShowForm(false);
+            },
+          }
+        );
   };
   const onError = (errors) => {
     //?Just to know how to use handleSubmit
