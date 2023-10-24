@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import { useCreateCabin } from './useCreateCabin';
 import { useEditCabin } from './useEditCabin';
 
-function CreateCabinForm({ setShowForm, cabinToEdit = {} }) {
+function CreateCabinForm({ onClose, cabinToEdit = {} }) {
   const { id: editId, ...editValues } = cabinToEdit;
   const isEditSession = Boolean(editId);
   const { register, handleSubmit, reset, getValues, formState } = useForm({
@@ -33,7 +33,7 @@ function CreateCabinForm({ setShowForm, cabinToEdit = {} }) {
           {
             onSuccess: (data) => {
               reset();
-              setShowForm(false);
+              onClose();
             },
           }
         )
@@ -42,7 +42,7 @@ function CreateCabinForm({ setShowForm, cabinToEdit = {} }) {
           {
             onSuccess: (data) => {
               reset();
-              setShowForm(false);
+              onClose();
             },
           }
         );
@@ -53,7 +53,7 @@ function CreateCabinForm({ setShowForm, cabinToEdit = {} }) {
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)}>
+    <Form onSubmit={handleSubmit(onSubmit, onError)} type="modal">
       <FormRow label="Cabin name" error={errors?.name?.message}>
         <Input
           type="text"
@@ -121,7 +121,7 @@ function CreateCabinForm({ setShowForm, cabinToEdit = {} }) {
       <FormRow>
         {/* type is an HTML attribute! */}
         <Button
-          onClick={() => setShowForm(false)}
+          onClick={() => onClose(false)}
           disabled={isWorking}
           variation="secondary"
           type="reset"
