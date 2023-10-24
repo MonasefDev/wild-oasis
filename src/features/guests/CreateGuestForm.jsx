@@ -31,7 +31,6 @@ function CreateGuestForm({ onSuccessNewGuest, closeModal }) {
       label: country.name,
     };
   });
-  console.log(countryOptions);
 
   const onSubmit = function (data) {
     const countryFlag = countries.find(
@@ -55,20 +54,20 @@ function CreateGuestForm({ onSuccessNewGuest, closeModal }) {
   };
 
   return (
-    <Form type='modal' onSubmit={handleSubmit(onSubmit)}>
-      <FormRow label='Full name' error={errors?.fullName?.message}>
+    <Form type="modal" onSubmit={handleSubmit(onSubmit)}>
+      <FormRow label="Full name" error={errors?.fullName?.message}>
         <Input
-          type='text'
-          id='fullName'
+          type="text"
+          id="fullName"
           disabled={isCreating}
           {...register('fullName', { required: 'This field is required' })}
         />
       </FormRow>
 
-      <FormRow label='Email address' error={errors?.email?.message}>
+      <FormRow label="Email address" error={errors?.email?.message}>
         <Input
-          type='email'
-          id='email'
+          type="email"
+          id="email"
           disabled={isCreating}
           {...register('email', {
             required: 'Email address is required',
@@ -81,9 +80,9 @@ function CreateGuestForm({ onSuccessNewGuest, closeModal }) {
         />
       </FormRow>
 
-      <FormRow label='Nationality' error={errors?.nationality?.message}>
+      <FormRow label="Nationality" error={errors?.nationality?.message}>
         <FormSelect
-          id='nationality'
+          id="nationality"
           disabled={isCreating}
           options={[
             { value: '', label: 'Select nationality...' },
@@ -93,19 +92,19 @@ function CreateGuestForm({ onSuccessNewGuest, closeModal }) {
         ></FormSelect>
       </FormRow>
 
-      <FormRow label='National ID' error={errors?.nationalID?.message}>
+      <FormRow label="National ID" error={errors?.nationalID?.message}>
         <Input
-          type='text'
+          type="text"
           disabled={isCreating}
-          id='nationalID'
+          id="nationalID"
           {...register('nationalID', { required: 'This field is required' })}
         />
       </FormRow>
 
       <FormRow>
         <Button
-          variation='secondary'
-          type='reset'
+          variation="secondary"
+          type="reset"
           disabled={isCreating}
           onClick={() => closeModal?.()}
         >

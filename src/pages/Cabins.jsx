@@ -1,6 +1,7 @@
 import Heading from '../ui/Heading';
 import Row from '../ui/Row';
 import CabinTable from '../features/cabins/CabinTable';
+import AddCabin from '../features/cabins/AddCabin';
 
 function Cabins() {
   return (
@@ -11,6 +12,7 @@ function Cabins() {
       </Row>
       <Row>
         <CabinTable />
+        <AddCabin />
       </Row>
     </>
   );
