@@ -71,13 +71,13 @@ function Modal({ children }) {
   );
 }
 
-function Open({ children, name: openWindowName }) {
+function Open({ children, opens: openWindowName }) {
   //
   const { open } = useContext(ModalContext);
   return cloneElement(children, { onClick: () => open(openWindowName) }); // we use cloneElement to pass props with children
 }
 
-function Window({ children, opens: openWindowName }) {
+function Window({ children, name: openWindowName }) {
   const { close: onClose, openName } = useContext(ModalContext);
   const ref = useOutsideClick(onClose);
   if (openName !== openWindowName) return null;
