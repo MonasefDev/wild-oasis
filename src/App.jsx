@@ -16,7 +16,7 @@ import { Toaster } from 'react-hot-toast';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 60 * 1000, //the time for the data to be stale (re-render)
+      staleTime: 10 * 1000, //the time for the data to be stale (re-render)
     },
   },
 });

@@ -1,4 +1,7 @@
-import styled from "styled-components";
+import { HiChevronLeft, HiChevronRight } from 'react-icons/hi2';
+import { useSearchParams } from 'react-router-dom';
+import styled from 'styled-components';
+import { PAGE_SIZE } from '../utils/constants';
 
 const StyledPagination = styled.div`
   width: 100%;
@@ -7,7 +10,7 @@ const StyledPagination = styled.div`
   justify-content: space-between;
 `;
 
-const P = styled.p`
+const P = styled.div`
   font-size: 1.4rem;
   margin-left: 0.8rem;
 
@@ -16,19 +19,27 @@ const P = styled.p`
   }
 `;
 
+const PaginationNumber = styled.p`
+  font-size: 1.6rem;
+  width: 3rem;
+  text-align: center;
+  font-weight: 700;
+`;
+
 const Buttons = styled.div`
   display: flex;
+  align-items: center;
   gap: 0.6rem;
 `;
 
 const PaginationButton = styled.button`
   background-color: ${(props) =>
-    props.active ? " var(--color-brand-600)" : "var(--color-grey-50)"};
-  color: ${(props) => (props.active ? " var(--color-brand-50)" : "inherit")};
-  border: none;
+    props.active ? ' var(--color-brand-600)' : 'var(--color-grey-50)'};
+  color: ${(props) => (props.active ? ' var(--color-brand-50)' : 'inherit')};
   border-radius: var(--border-radius-sm);
   font-weight: 500;
   font-size: 1.4rem;
+  border: 2px solid var(--color-brand-600);
 
   display: flex;
   align-items: center;
@@ -55,3 +66,47 @@ const PaginationButton = styled.button`
     color: var(--color-brand-50);
   }
 `;
+
+function Pagination({ count }) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = Number(searchParams.get('page') || 1);
+  const lastPage = Math.ceil(count / PAGE_SIZE);
+  if (lastPage === 1) return null;
+  const nextPage = () => {
+    const next = currentPage === lastPage ? currentPage : currentPage + 1;
+    searchParams.set('page', next);
+    setSearchParams(searchParams);
+  };
+  const prevPage = () => {
+    const prev = currentPage === 1 ? 1 : currentPage - 1;
+    searchParams.set('page', prev);
+    setSearchParams(searchParams);
+  };
+  return (
+    <StyledPagination>
+      <P>
+        Showing <span>{(currentPage - 1) * PAGE_SIZE + 1}</span> to{' '}
+        <span>
+          {currentPage === lastPage ? count : currentPage * PAGE_SIZE}
+        </span>{' '}
+        of <span>{count}</span>
+      </P>
+      <Buttons>
+        <PaginationButton onClick={prevPage} disabled={currentPage === 1}>
+          <HiChevronLeft />
+          <span>Previous</span>
+        </PaginationButton>
+        <PaginationNumber>{currentPage}</PaginationNumber>
+        <PaginationButton
+          onClick={nextPage}
+          disabled={currentPage === lastPage}
+        >
+          <span>Next</span>
+          <HiChevronRight />
+        </PaginationButton>
+      </Buttons>
+    </StyledPagination>
+  );
+}
+
+export default Pagination;
